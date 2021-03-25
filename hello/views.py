@@ -6,11 +6,19 @@ import json
 @csrf_exempt
 def webhook(request):
     request_message = json.loads(request.body)
+
+    text = ''
+
+    if request_message['session']['new']:
+        text = 'Привет новичек'
+    else:
+        text = request_message['request']['original_utterance']
+
     derived_session_fields = ['session_id', 'user_id', 'message_id']
     response_message = {
         "response": {
-            "text": request_message['request']['original_utterance'],
-            "tts": request_message['request']['original_utterance'],
+            "text": text,
+            "tts": text,
             "end_session": False
         },
         "session": {derived_key: request_message['session'][derived_key] for derived_key in derived_session_fields},
