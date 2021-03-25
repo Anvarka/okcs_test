@@ -12,7 +12,8 @@ def webhook(request):
     voice = ''
 
     if request_message['session']['new']:
-        voice = 'Привет, чтобы читать ленту, тебе нужно сначала залогиниться в ОК. '
+        voice = 'Привет, чтобы читать ленту, тебе нужно сначала залогиниться в Одноклассники. ' \
+                'Для этого перейди по ссылке. '
         text = voice + link
     else:
         text = request_message['request']['original_utterance']
