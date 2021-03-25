@@ -10,10 +10,11 @@ def webhook(request):
     text = ''
     link = 'https://vk.cc/c06npA'
     voice = ''
+    buttons = [button('Прочитать 1 пост')]
 
     if request_message['session']['new']:
         voice = 'Привет, чтобы читать ленту, тебе нужно сначала залогиниться в Одноклассники. ' \
-                'Для этого перейди по ссылке. '
+                'Для этого перейди по ссылке: '
         text = voice + link
     else:
         text = request_message['request']['original_utterance']
@@ -24,6 +25,7 @@ def webhook(request):
         "response": {
             "text": text,
             "tts": voice,
+            "buttons": buttons,
             "end_session": False
         },
         "session": {derived_key: request_message['session'][derived_key] for derived_key in derived_session_fields},
